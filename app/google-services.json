@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "52734518359",
+    "firebase_url": "https://linisapp-20722.firebaseio.com",
+    "project_id": "linisapp-20722",
+    "storage_bucket": "linisapp-20722.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52734518359:android:615b49045881f8f9",
+        "android_client_info": {
+          "package_name": "com.example.jeffree.linisapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52734518359-3jf9dbbejv93gce1db2ine2uhkg17dbh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jeffree.linisapp",
+            "certificate_hash": "62d823115478e89871d7f8284428f7afb648719d"
+          }
+        },
+        {
+          "client_id": "52734518359-e4937rk9o9ftpgd5bt9qf14tkdi4hh13.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHlLWJpgoYr-l-Q6ACC36S2u1Qtmt2MbM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52734518359-e4937rk9o9ftpgd5bt9qf14tkdi4hh13.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
