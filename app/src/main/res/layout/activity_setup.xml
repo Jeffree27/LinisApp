@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".SetupActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -27,8 +28,10 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="@string/setup_name_hint"
+        android:hint="Username"
         android:inputType="textPersonName"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setup_image" />
@@ -40,10 +43,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="4dp"
+        android:background="@color/colorAccent"
         android:padding="15dp"
         android:text="@string/setup_btn_name_text"
         android:textAllCaps="false"
-        android:textSize="14sp"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setup_name" />

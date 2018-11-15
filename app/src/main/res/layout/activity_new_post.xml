@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".NewPostActivity">
 
     <android.support.v7.widget.Toolbar
@@ -39,7 +40,9 @@
         android:includeFontPadding="false"
         android:inputType="none"
         android:maxLength="256"
-        android:textSize="18sp"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_post_image" />
@@ -51,8 +54,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="19dp"
         android:layout_marginEnd="16dp"
+        android:background="@color/colorAccent"
         android:text="@string/add_post_btn_text"
-        android:textSize="18sp"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_post_desc" />

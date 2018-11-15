@@ -132,11 +132,11 @@ public class LinisRecyclerAdapter extends RecyclerView.Adapter<LinisRecyclerAdap
 
                 if(documentSnapshot.exists()){
 
-                    holder.linisVolunteerBtn.setImageDrawable(context.getDrawable(R.mipmap.action_volunteer_green));
+                    holder.linisVolunteerBtn.setImageDrawable(context.getDrawable(R.drawable.volunteer_plain));
 
                 }else {
 
-                    holder.linisVolunteerBtn.setImageDrawable(context.getDrawable(R.mipmap.action_volunteer_gray));
+                    holder.linisVolunteerBtn.setImageDrawable(context.getDrawable(R.drawable.volunteer_colored));
 
                 }
 
