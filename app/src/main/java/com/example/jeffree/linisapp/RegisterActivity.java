@@ -45,16 +45,16 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = reg_email_field.getText().toString();
-                String pass = reg_pass_field.getText().toString();
-                String confirm_pass = reg_confirm_pass_field.getText().toString();
+                String email = reg_email_field.getText().toString(); //gets text from email textfield
+                String pass = reg_pass_field.getText().toString(); //gets text from password textfield
+                String confirm_pass = reg_confirm_pass_field.getText().toString(); //gets text from confirm password textfield
 
-                if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass) && !TextUtils.isEmpty(confirm_pass)){
+                if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass) && !TextUtils.isEmpty(confirm_pass)){ //checks if textfields are empty
 
-                    if(pass.equals(confirm_pass)){
+                    if(pass.equals(confirm_pass)){ //password must be the same with confirm password
 
                         reg_progress.setVisibility(View.VISIBLE);
-                        mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() { //add user on firebase using text from username and password textfield
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart() { //checks if current user is logged in already
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -95,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void sendToMain() {
+    private void sendToMain() { //send to mainActivity
 
         Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(mainIntent);

@@ -8,10 +8,16 @@
         android:title="@string/bottom_home_text" />
     <item
         android:id="@+id/bottom_action_notification"
+        android:checkable="false"
+        android:enabled="false"
         android:icon="@mipmap/action_notification"
-        android:title="@string/bottom_notification_text" />
+        android:title="@string/bottom_notification_text"
+        android:visible="false" />
     <item
         android:id="@+id/bottom_action_profile"
+        android:checkable="false"
+        android:enabled="false"
         android:icon="@mipmap/action_profile"
-        android:title="@string/bottom_profile_text" />
+        android:title="@string/bottom_profile_text"
+        android:visible="false" />
 </menu>

@@ -39,14 +39,14 @@ public class LoginActivity extends AppCompatActivity {
         loginProgress = (ProgressBar) findViewById(R.id.login_progress);
 
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() { //Login process
             @Override
             public void onClick(View v) {
 
                 String loginEmail = loginEmailText.getText().toString();
                 String loginPass = loginPassText.getText().toString();
 
-                if(!TextUtils.isEmpty(loginEmail) && !TextUtils.isEmpty(loginPass)){
+                if(!TextUtils.isEmpty(loginEmail) && !TextUtils.isEmpty(loginPass)){ //Checks if username and password are not empty
 
                     loginProgress.setVisibility(View.VISIBLE);
 
@@ -54,11 +54,11 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
-                            if (task.isSuccessful()) {
+                            if (task.isSuccessful()) { //if not empty and email/password are correct, proceed to main
 
                                 sendToMain();
 
-                            } else {
+                            } else { //if empty go here
 
                                 String errorMessage = task.getException().getMessage();
                                 Toast.makeText(LoginActivity.this, "Error :" + errorMessage, Toast.LENGTH_LONG).show();
@@ -77,12 +77,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart() { //On start of activity, check if user is currently logged in or not
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if(currentUser != null){
+        if(currentUser != null){ //if user is logged in, send to MainActivity
 
             sendToMain();
 
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void sendToMain() {
+    private void sendToMain() { //Send to mainActivity
         Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(mainIntent);
         finish();

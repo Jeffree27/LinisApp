@@ -80,11 +80,11 @@ public class NewPostActivity extends AppCompatActivity {
         newPostBtn = findViewById(R.id.post_btn);
         newPostProgress = findViewById(R.id.new_post_progress);
 
-        newPostImage.setOnClickListener(new View.OnClickListener() {
+        newPostImage.setOnClickListener(new View.OnClickListener() { //Adding an image with crop
             @Override
             public void onClick(View v) {
 
-                CropImage.activity()
+                CropImage.activity() //Crop activity
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setMinCropResultSize(512, 512)
                         .setAspectRatio(1, 1)
@@ -93,19 +93,19 @@ public class NewPostActivity extends AppCompatActivity {
             }
         });
 
-        newPostBtn.setOnClickListener(new View.OnClickListener() {
+        newPostBtn.setOnClickListener(new View.OnClickListener() { //Post button
             @Override
             public void onClick(View v) {
 
-                final String desc = newPostDesc.getText().toString();
+                final String desc = newPostDesc.getText().toString(); //gets the string from the desc textview
 
-                if (!TextUtils.isEmpty(desc) && postImageURI != null) {
+                if (!TextUtils.isEmpty(desc) && postImageURI != null) { //checks if description and image are not empty
 
-                    newPostProgress.setVisibility(View.VISIBLE);
+                    newPostProgress.setVisibility(View.VISIBLE); //progress bar will appear
 
-                    final String randomName = UUID.randomUUID().toString();
+                    final String randomName = UUID.randomUUID().toString(); //make a random string for image
 
-                    StorageReference filepath = storageReference.child("post_images").child(randomName + ".jpg");
+                    StorageReference filepath = storageReference.child("post_images").child(randomName + ".jpg"); //puts the image on storage
                     filepath.putFile(postImageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull final Task<UploadTask.TaskSnapshot> task) {
@@ -118,14 +118,14 @@ public class NewPostActivity extends AppCompatActivity {
 
                                 try {
 
-                                    compressedImageFile = new Compressor(NewPostActivity.this)
+                                    compressedImageFile = new Compressor(NewPostActivity.this) //compresses image to reduce size
                                             .setMaxHeight(100)
                                             .setMaxWidth(100)
                                             .setQuality(10)
                                             .compressToBitmap(newImageFile);
 
 
-                                } catch (IOException e) {
+                                } catch (IOException e) { //error handling
                                     e.printStackTrace();
                                 }
 
@@ -135,24 +135,24 @@ public class NewPostActivity extends AppCompatActivity {
 
                                 UploadTask uploadTask = storageReference.child("post_images/thumbs").child(randomName + ".jpg").putBytes(thumbData);
 
-                                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() { //puts on database
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                                         String downloadthumbUri = taskSnapshot.getDownloadUrl().toString();
 
                                         Map<String, Object> postMap = new HashMap<>();
-                                        postMap.put("image_url", downloadUri);
-                                        postMap.put("image_thumb", downloadthumbUri);
-                                        postMap.put("desc", desc);
-                                        postMap.put("user_id", current_user_id);
-                                        postMap.put("timestamp", FieldValue.serverTimestamp());
+                                        postMap.put("image_url", downloadUri); //create image_url folder
+                                        postMap.put("image_thumb", downloadthumbUri); //create image_thumb folder ""
+                                        postMap.put("desc", desc); //create desc folder ""
+                                        postMap.put("user_id", current_user_id); //create user_id folder "" to know who posted the picture
+                                        postMap.put("timestamp", FieldValue.serverTimestamp()); //create timestamp folder "" for checking what time it was posted
 
                                         firebaseFirestore.collection("Posts").add(postMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                             @Override
                                             public void onComplete(@NonNull Task<DocumentReference> task) {
 
-                                                if (task.isSuccessful()) {
+                                                if (task.isSuccessful()) { //if post was successfully stored on database
 
                                                     Toast.makeText(NewPostActivity.this, "Post was added", Toast.LENGTH_SHORT).show();
                                                     Intent mainIntent = new Intent(NewPostActivity.this, MainActivity.class);
@@ -161,7 +161,7 @@ public class NewPostActivity extends AppCompatActivity {
 
                                                 } else {
 
-                                                    String error = task.getException().getMessage();
+                                                    String error = task.getException().getMessage(); //if post was not successfully stored on database
                                                     Toast.makeText(NewPostActivity.this, "(FIRESTORE Error) : " + error, Toast.LENGTH_LONG).show();
 
                                                 }
@@ -199,7 +199,7 @@ public class NewPostActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) { //crop activity
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {

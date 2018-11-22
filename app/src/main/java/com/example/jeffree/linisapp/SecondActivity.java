@@ -22,7 +22,7 @@ public class SecondActivity extends AppCompatActivity {
         regBtn2 = (TextView) findViewById(R.id.start_reg_btn);
 
 
-        loginBtn2.setOnClickListener(new View.OnClickListener() {
+        loginBtn2.setOnClickListener(new View.OnClickListener() { //Go to login page
             @Override
             public void onClick(View v) {
 
@@ -31,7 +31,7 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
-        regBtn2.setOnClickListener(new View.OnClickListener() {
+        regBtn2.setOnClickListener(new View.OnClickListener() { //Go to register page
             @Override
             public void onClick(View view) {
 

@@ -86,13 +86,13 @@ public class SetupActivity extends AppCompatActivity {
         setupProgress.setVisibility(View.VISIBLE);
         setupBtn.setEnabled(false);
 
-        firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        firebaseFirestore.collection("User").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) { //checks if the user exists on the database
 
                 if(task.isSuccessful()){
 
-                    if(task.getResult().exists()){
+                    if(task.getResult().exists()){ //if user exists, retrieve image and name then put to textview and image holder
 
                         String name = task.getResult().getString("name");
                         String image = task.getResult().getString("image");
@@ -109,7 +109,7 @@ public class SetupActivity extends AppCompatActivity {
 
                     }
 
-                } else {
+                } else { //if user does not exist
 
                     String error = task.getException().getMessage();
                     Toast.makeText(SetupActivity.this, "(FIRESTORE Retrieve Error) : " + error, Toast.LENGTH_LONG).show();
@@ -127,18 +127,18 @@ public class SetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String user_name = setupName.getText().toString();
+                final String user_name = setupName.getText().toString(); //gets name from textview
 
-                if (!TextUtils.isEmpty(user_name) && mainImageURI != null) {
+                if (!TextUtils.isEmpty(user_name) && mainImageURI != null) { //checks if textview and image are not empty
 
                     setupProgress.setVisibility(View.VISIBLE);
 
-                    if (isChanged) {
+                    if (isChanged) { //if textview and image are changed
 
                         user_id = firebaseAuth.getCurrentUser().getUid();
 
                         File newImageFile = new File(mainImageURI.getPath());
-                        try {
+                        try { //compresses image
 
                             compressedImageFile = new Compressor(SetupActivity.this)
                                     .setMaxHeight(125)
@@ -150,7 +150,7 @@ public class SetupActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream(); //uploads image
                         compressedImageFile.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         byte[] thumbData = baos.toByteArray();
 
@@ -161,11 +161,11 @@ public class SetupActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 
                                 if (task.isSuccessful()) {
-                                    storeFirestore(task, user_name);
+                                    storeFirestore(task, user_name); //uploads name
 
                                 } else {
 
-                                    String error = task.getException().getMessage();
+                                    String error = task.getException().getMessage(); //error handling
                                     Toast.makeText(SetupActivity.this, "(IMAGE Error) : " + error, Toast.LENGTH_LONG).show();
 
                                     setupProgress.setVisibility(View.INVISIBLE);
@@ -186,7 +186,7 @@ public class SetupActivity extends AppCompatActivity {
 
         });
 
-        setupImage.setOnClickListener(new View.OnClickListener() {
+        setupImage.setOnClickListener(new View.OnClickListener() { //permission to access storage
             @Override
             public void onClick(View v) {
 
@@ -230,14 +230,14 @@ public class SetupActivity extends AppCompatActivity {
         }
 
         Map<String, String> userMap = new HashMap<>();
-        userMap.put("name", user_name);
-        userMap.put("image", download_uri.toString());
+        userMap.put("name", user_name); //uploads name to database
+        userMap.put("image", download_uri.toString()); //uploads picture to database
 
-        firebaseFirestore.collection("Users").document(user_id).set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        firebaseFirestore.collection("User").document(user_id).set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 
-                if(task.isSuccessful()){
+                if(task.isSuccessful()){ //if settings are successfully updated
 
                     Toast.makeText(SetupActivity.this, "The user Settings are updated.", Toast.LENGTH_LONG).show();
                     Intent mainIntent = new Intent(SetupActivity.this, MainActivity.class);
@@ -246,7 +246,7 @@ public class SetupActivity extends AppCompatActivity {
 
                 } else {
 
-                    String error = task.getException().getMessage();
+                    String error = task.getException().getMessage(); //if settings are not successfully updated
                     Toast.makeText(SetupActivity.this, "(FIRESTORE Error) : " + error, Toast.LENGTH_LONG).show();
 
                 }
@@ -259,7 +259,7 @@ public class SetupActivity extends AppCompatActivity {
 
     }
 
-    private void BringImagePicker() {
+    private void BringImagePicker() { //set aspects of cropped image
 
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
@@ -269,7 +269,7 @@ public class SetupActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) { //crop image activity
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {

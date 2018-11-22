@@ -36,7 +36,8 @@
             android:name=".NewPostActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".FirstActivity" />
-        <activity android:name=".SecondActivity"></activity>
+        <activity android:name=".SecondActivity" />
+        <activity android:name=".CommentsActivity"></activity>
     </application>
 
 </manifest>

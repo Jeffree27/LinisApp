@@ -1,6 +1,6 @@
 package com.example.jeffree.linisapp;
-
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
@@ -172,6 +172,17 @@ public class LinisRecyclerAdapter extends RecyclerView.Adapter<LinisRecyclerAdap
             }
         });
 
+        holder.linisCommentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent commentIntent = new Intent(context, CommentsActivity.class);
+                commentIntent.putExtra("linis_post_id", linisPostId);
+                context.startActivity(commentIntent);
+
+            }
+        });
+
     }
 
     @Override
@@ -194,6 +205,8 @@ public class LinisRecyclerAdapter extends RecyclerView.Adapter<LinisRecyclerAdap
         private ImageView linisVolunteerBtn;
         private TextView linisVolunteerCount;
 
+        private ImageView linisCommentBtn;
+
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -201,6 +214,7 @@ public class LinisRecyclerAdapter extends RecyclerView.Adapter<LinisRecyclerAdap
 
             linisVolunteerBtn = mView.findViewById(R.id.linis_volunteer_btn);
             linisVolunteerCount = mView.findViewById(R.id.linis_volunteer_count);
+            linisCommentBtn = mView.findViewById(R.id.linis_comment_btn);
 
         }
 
